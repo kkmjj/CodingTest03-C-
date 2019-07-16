@@ -1,0 +1,57 @@
+/*
+단순 오름차순
+*/
+
+#include <stdio.h>
+#include<stdlib.h>
+
+typedef struct student
+{
+	int id;
+	int score;
+
+}student;
+
+void main(void)
+{
+	int N;
+	int i;
+	int j;
+	int temp;
+	int temps;
+	student *s;
+	scanf("%d", &N);
+	s = (student*)malloc(sizeof(student)*N);
+
+	for (i = 1; i <= N; i++)
+	{
+		s[i-1].id = i;
+		scanf("%d", &s[i - 1].score);
+	}
+
+
+	for (i = 0; i < N; i++)
+	{
+		for (j = i; j < N; j++)
+		{
+			if (s[i].score < s[j].score)
+			{
+				temp = s[i].score;
+				temps = s[i].id;
+				s[i].score = s[j].score;
+				s[i].id = s[j].id;
+				s[j].score = temp;
+				s[j].id = temps;
+
+			}
+		}
+	}
+
+	for (i = 0; i < 3; i++)
+	{
+		printf("%d ", s[i].id);
+	}
+
+	
+
+}
