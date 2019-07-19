@@ -1,0 +1,200 @@
+
+#if 1
+
+#include <stdio.h>
+#include <string.h>
+#include <conio.h>
+
+#include <malloc.h>
+
+typedef struct _score 
+{
+	int id;
+	int jumsu;
+	char name[10];
+}SCORE;
+
+#define MAX_ST		20
+#define HASH_KEY	10  // 해쉬 %10을 통해서 해쉬값을 나머지 값으로 사용 
+#define STEP		1
+
+SCORE Hash_table[MAX_ST];
+
+// 이제부터 설계되는 모든 함수는 이 부분에 선언을 추가한다
+
+
+
+int Create_Data(SCORE * p);
+int Get_Hash_Key(int id);
+void Init_Hash_Table(void);
+void Print_All_Data(void);
+int Insert_Data(SCORE * d);
+SCORE * Search_Data(int id);
+int Delete_Data(int id);
+
+SCORE test[MAX_ST+2] = {{10, 50, "kim"}, {2, 80, "lew"}, {8, 50, "lew"}, {4, 45, "lee"}, {1, 90, "song"},\
+                               {3, 45, "kim"}, {5, 50, "song"}, {9, 100, "lee"}, {7, 75, "moon"}, {6, 90, "park"}, \
+                               {15, 90, "ki"}, {11, 20, "kong"}, {14, 40, "shin"}, {12, 50, "son"}, {17, 48, "lee"}, \
+                               {20, 100, "min"}, {19, 80, "you"}, {13, 45, "song"}, {16, 54, "no"}, {18, 100, "yang"}, \
+							   {21, 58, "seo"}, {23, 88, "oh"}}; 
+
+int Create_Data(SCORE * p)
+{
+	printf("\n사번을 입력하시오 => ");
+	scanf("%d", &p->id);
+	fflush(stdin);
+	printf("이름을 입력하시오 => ");
+	scanf("%s", p->name);
+	fflush(stdin);
+	printf("점수를 입력하시오 => ");
+	scanf("%d", &p->jumsu);
+	fflush(stdin);
+
+	return 1;
+}
+
+int Get_Hash_Key(int id)
+{
+	return id % HASH_KEY; // 해쉬 방정식
+}
+
+void Init_Hash_Table(void)
+{
+	int i;
+
+	for(i=0; i<MAX_ST; i++)
+	{
+		Hash_table[i].id = -1;  // 해쉬 값이 비어 있는 지 확인 
+	}
+}
+
+#endif
+
+
+
+/***********************************************************/
+// [3-2.2] Insert => Open Address 방법 // 충돌시 다음값이 비어있으면 다음값에 넣어줌 
+/***********************************************************/
+
+
+
+
+/***********************************************************/
+// [3-2.3] Search
+/***********************************************************/
+
+#if 1
+
+SCORE * Search_Data(int id)
+{
+	int key=0;
+	int i;
+
+	key=Get_Hash_Key(id);
+	for(i=0;i<MAX_ST;i+=STEP)
+	{
+		if(Hash_table[key].id==id)return&Hash_table[key];
+
+		key=(key+STEP)%MAX_ST;
+
+	
+	}
+
+	return 0;
+
+
+
+
+}
+
+#endif
+
+
+
+
+/***********************************************************/
+// [3-2.5] 삭제 노드 ID를 -2로 하도록 delete 함수 설계를 다시 진행한다
+// 삭제 전략이 달라지면서 Insert 전략도 수정되어야 한다. 
+// 새로은 Insert 함수가 설계되면 [3-3.2]에서 설계된 Insert_Data 함수는 삭제한다
+/***********************************************************/
+
+#if 1
+
+int Delete_Data(int id)
+{
+
+	SCORE *p;
+	p=Search_Data(id); // 해당 데이터를 찾아보고
+	if(p==NULL) return -1; // 값이 존재하지 않으면 삭제할 데이터가 없음
+	p->id=-2; // 삭제시 -2를 하는 이유는 그값에 존재해서 다음값으로 들어간 해쉬값을 불러올때 판단하기위해서
+
+	return 1;
+
+
+}
+
+int Insert_Data(SCORE * d)
+{
+	int pos;
+	int key;
+	
+	pos = key = Get_Hash_Key(d->id);
+
+	for(;;)
+	{
+		if((Hash_table[pos].id == -1) || (Hash_table[pos].id == -2)) // 삭제된곳도 들어가게 
+		{
+			Hash_table[pos] = *d;
+			return pos;
+		}
+
+		pos += STEP;
+		if(pos == key) return -1;
+		if(pos > MAX_ST) pos = 0;
+	}
+}
+
+void Print_All_Data(void)
+{
+	int i;
+
+	for(i=0; i<MAX_ST; i++)
+	{
+		if((Hash_table[i].id != -1) && (Hash_table[i].id != -2)) 
+		{
+			printf("[%d] ID: %d, NAME: %s\n", i, Hash_table[i].id, Hash_table[i].name);
+		}
+	}
+}
+
+#endif
+
+#if 1
+
+void main(void)
+{
+	int i;
+	int r;
+	int n;
+
+	Init_Hash_Table();
+
+	for(i=0; i<15; i++)
+	{
+		printf("[Loop: %d] Inserted Position=%d, ID=%d\n", i, r = Insert_Data(&test[i]), test[i].id);
+	}
+
+	Print_All_Data();
+	printf("삭제할 데이터를 입력하시오");
+	scanf("%d",&n);
+	printf(" Delete Result=%d\n", r = Delete_Data(n));
+	Print_All_Data();
+	printf("삽입 데이터를 입력하시오");
+	scanf("%d",&n);
+	printf("Inserted Position=%d, ID=%d\n", r = Insert_Data(&test[n]), test[n].id);
+	Print_All_Data();
+}
+
+#endif
+
+#endif
