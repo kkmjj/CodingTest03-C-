@@ -1,0 +1,67 @@
+// [3-1.1] 이진 Tree의 인쇄
+/***********************************************************/
+#if 1
+
+#include <stdio.h>
+
+struct node
+{
+	char *name;
+	struct node *left;
+	struct node *right;
+};
+
+void Print_All_Node1(struct node *p);
+void Print_All_Node2(struct node *p);
+void Print_All_Node3(struct node *p);
+
+void main(void)
+{
+	struct node root, node1, node2, node3, node4;
+
+	root.left = &node1;
+	root.right = &node2;
+	root.name = "root";
+	node1.left = &node3;
+	node1.right = &node4;
+	node1.name = "node1";
+	node2.left = NULL;
+	node2.right = NULL;
+	node2.name = "node2";
+	node3.left = NULL;
+	node3.right = NULL;
+	node3.name = "node3";
+	node4.left = NULL;
+	node4.right = NULL;
+	node4.name = "node4";
+
+	printf("In-order Traverse===============\n");
+	Print_All_Node1(&root);
+	printf("Pre-order Traverse===============\n");
+	Print_All_Node2(&root);
+	printf("Post-order Traverse===============\n");
+	Print_All_Node3(&root);
+}
+
+void Print_All_Node1(struct node *p)
+{
+	if(p->left) Print_All_Node1(p->left);
+	printf("Name = %s\n", p->name);
+	if(p->right) Print_All_Node1(p->right);
+}
+
+void Print_All_Node2(struct node *p)
+{
+	printf("Name = %s\n", p->name);
+	if(p->left) Print_All_Node2(p->left);
+	if(p->right) Print_All_Node2(p->right);
+}
+
+void Print_All_Node3(struct node *p)
+{
+	if(p->left) Print_All_Node3(p->left);
+	if(p->right) Print_All_Node3(p->right);
+	printf("Name = %s\n", p->name);
+}
+
+#endif

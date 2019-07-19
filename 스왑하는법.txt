@@ -1,0 +1,34 @@
+	/*
+	 
+char[] c = originalString.toCharArray();
+
+// Replace with a "swap" function, if desired:
+char temp = c[0];
+c[0] = c[1];
+c[1] = temp;
+
+String swappedString = new String(c);
+	 */
+	
+	static String swap(String a, int scount)
+	{
+		char [] c =a.toCharArray();
+		if(c[scount]==c[scount+1])
+			{
+			swapv=false;
+			return a;
+			}
+		
+		
+		char temp =c[scount];
+		c[scount]=c[scount+1];
+		c[scount+1]=temp;
+		
+		String b = new String(c);
+		
+		System.out.println(b);
+		
+		swapv=true;
+		
+		return b;
+	}

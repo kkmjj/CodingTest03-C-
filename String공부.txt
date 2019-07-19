@@ -1,0 +1,12 @@
+Stirng과 StirngBuffer의 차이 
+String은  불변하다는 장점이 있어 문자열 연산이 적고 조회가 많을때 멀티 쓰레드 환경에서 적합
+
+String Buffer는 변경이 ㅏ능하고 new를 만들고 크기를 맘대로 지정하여 사용 가능 
+연상이 자주 있을때 사용하면 성능이 좋다 .
+
+차이점은 StringBuffer는
+ 멀티쓰레드환경에서 synchronized키워드가 가능하므로 동기화가 가능하다. 즉, thread-safe하다.
+StringBuilder는 
+동기화를 지원하지 않기 때문에 멀티쓰레드환경에서는 적합하지 않다.
+StringBuilder가 동기화를 고려하지 않기 때문에 싱글쓰레드 환경에서
+ StringBuffer에 비해 연산처리가 빠르다.
