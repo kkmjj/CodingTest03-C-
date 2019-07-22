@@ -1,0 +1,126 @@
+/*
+
+
+첫 줄에 정수의 개수 N이 입력으로 주어진다.
+
+둘째 줄에는 N개의 정수 M과 연산자로 구성 된 수식이 주어진다. 
+정수와 연산자 사이에는 공백이 하나 주어진다. (1≤ N ≤20, 1≤ M ≤10 , 연산자 - +, -, *, / )
+
+
+출력 설명 
+
+수식의 연산결과를 출력한다.
+
+
+입력 예시 
+
+4
+1 - 4 * 9 + 10
+
+출력 예시 
+
+-25
+
+*/
+#include <stdio.h>
+
+
+#define MAX 30
+int N;
+int a[30];
+char op[30];
+int stack[30];
+int sp=MAX;
+int push(int data);
+
+int pop(int *p);
+
+int push(int data){
+  if(sp==0) return -1;
+  sp--;
+  stack[sp]=data;
+  return 1;
+
+
+
+}
+
+int pop(int *p)
+{
+ if(sp==MAX) return -1;
+ *p=stack[sp];
+ sp++;
+ return 1;
+
+
+}
+
+
+
+
+int main()
+{
+	int i;
+	int data;
+	int sum=0;
+	scanf("%d",&N);
+	scanf("%d",&a[0]);
+	for(i=1;i<N;i++)
+
+	{
+		scanf(" %c %d" ,&op[i],&a[i]);
+
+
+
+	}
+
+	push(a[0]);
+for(i=1;i<N;i++)
+	{
+	if(op[i]=='+'){
+			push(a[i]); // stack에 해당 값을 넣어둠 
+
+		}
+	else if(op[i]=='-')
+		{
+			push(-a[i]); // 스택에 -붙여서 넣어둠 
+
+
+
+		}
+	else if(op[i]=='*')
+		{
+			pop(&data);
+			push(data*a[i]);
+
+
+
+		}
+	else if(op[i]=='/')
+		{
+
+		pop(&data);
+		push(data/a[i]);
+
+
+		}
+
+}
+
+
+while(pop(&data)!=-1) // 스택이 빌떄 까지 반복해서 더해주기 
+{
+	sum+=data;
+
+
+
+}
+
+
+printf("%d",sum);
+return 0;
+
+
+
+
+}
