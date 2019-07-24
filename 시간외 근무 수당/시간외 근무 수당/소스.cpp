@@ -17,17 +17,24 @@ int main() {
 		cin >> start >> end;
 		double temp;
 		temp = end - start; // 하루 동안의 시간계산 
+		temp = temp - 1; // 1시간 빼고 
 
-		if (temp <1)temp = 0;  // 최소 1시간은 넘어야 인정
+		if (temp <0)temp = 0;  // 최소 1시간은 넘어야 인정
+	
+			
+			if (temp > 4)temp = 4;
 
-		if (temp >= 4)temp = 4; // 최대 4시간 인정 
-		cout << temp;
-		cout << endl;
-		sum += (temp-1);
+		
+
+		sum += (temp);
 	}
-	cout << sum;
-	cout << endl;
-	won = (sum / 0.5) * 5000; // 0.5(30분) 단위로 5000원 을 받음 
+
+	won = (sum * 10000);// 0.5(30분) 단위로 5000원 을 받음
+
+	if (sum >= 15) won=won * 0.95;
+	else if(sum <=5) won=won * 1.05;
+
+	 
 
 	cout << won;
 
