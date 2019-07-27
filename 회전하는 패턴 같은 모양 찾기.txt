@@ -1,0 +1,106 @@
+﻿#include<iostream>
+using namespace std;
+
+char first[101][102];
+char second[101][102];
+bool v ;
+int M, N;
+
+
+void rotation()
+{
+
+
+
+	for (int i = 0; i < M/ 2; i++) { // 겉부분에 있는 원소
+		for (int j = i; j <(M - 1) - i; j++) { // 예를 들어 N=3 -> (0,0)부터 (0,1) 만 계산하면 끝 (한번에 4개 바꾸기 )
+			int temp = second[i][j];
+
+			second[i][j] = second[(M - 1) - j][i];
+			second[(M - 1) - j][i] = second[(M - 1) - i][(M - 1) - j];
+			second[(M - 1) - i][(M - 1) - j] = second[j][(M - 1) - i];
+			second[j][(M - 1) - i] = temp;
+		}
+
+	}
+
+}
+
+
+
+
+bool vs(int i, int j)
+{
+	for (int k = 0; k < M; k++) {
+		for (int l = 0; l < M; l++) {
+			
+			if (first[i + k][j + l] == second[k][l])continue;
+			else
+			{
+				return false;
+			}
+
+		}
+
+	}
+
+	return true;
+
+}
+
+int main() {
+	cin >> N;
+	for (int i = 0; i < N; i++)
+	{
+		for (int j = 0; j < N; j++)
+		{
+			cin >> first[i][j];
+		}
+	}
+
+	cin >> M;
+	for (int i = 0; i < M; i++)
+	{
+		for (int j = 0; j < M; j++)
+		{
+			cin >> second[i][j];
+		}
+	}
+	// 입력 
+	int cnt = 0;
+
+	
+	for (int r = 0; r < 4; r++)
+	{
+		for (int i = 0; i <= N - M; i++) // 작은 사각형이 마지막 에 올때 왼쪽 값 
+		{
+			for (int j = 0; j <= N - M; j++)
+			{
+
+
+				v = vs(i, j);
+
+
+				if (v) cnt++;
+
+
+
+			}
+		}
+		rotation();
+	}
+
+	cout << cnt;
+
+
+
+
+
+
+
+
+
+
+
+
+}
