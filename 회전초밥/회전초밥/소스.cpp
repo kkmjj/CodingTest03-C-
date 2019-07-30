@@ -28,7 +28,7 @@ int main() {
 		p[i] = p[entire - i];
 	}
 
-	// 7 9 7 30 2 7 9 25 7 9 7 30 
+	// 7 9 7 30 2 7 9 25     +    7 9 7 30 
  
 
 
@@ -46,11 +46,11 @@ int main() {
 			type++;
 		}
 	}
- 
+	max = type;
 
 
 
-	for (int k = 0; k < entire; k++)
+	for (int k = 0; k < entire-1 ; k++)
 	{
 		int front = k;
 		int back = plate + k;
@@ -59,9 +59,11 @@ int main() {
 			visit[front]--;
 			if (visit[front] == 0)type--;
 
-			if (visit[back] == 0)type++; 
-			visit[back]++;
-
+			if (visit[back] == 0)
+			{
+				type++;
+				visit[back]++;
+			}
 			temp = type;
 			if (visit[coupon] == 0) temp++;
 			if (max < temp) max = temp;

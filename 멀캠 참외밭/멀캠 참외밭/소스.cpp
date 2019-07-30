@@ -43,8 +43,7 @@ int main() {
 		int d;
 		int h;
 		cin >> d >> h;
-		if (start == 0)start = d;
-	
+
 		direction(d,h);
 
 
@@ -63,23 +62,14 @@ int main() {
 		}
 		else
 		{
-			a[i] = 1;
+			a[i]++;
+
 
 		}
 
-	[]
 	}
 
 
-	
-		
-	//¿ÞÂÊ ¾Æ·¡ 
-	if (a[1] == 1 && a[3] == 1)
-	{
-
-	}
-
-	
 
 
 
