@@ -4,19 +4,16 @@ using namespace std;
 int N;
 int dp[41];
 int cnt = 1;
-/*
+
 int pivo(int start) {
 
-	
-	dp[start] = dp[start - 1] + dp[start - 2];
-	cnt++;
-	if (cnt == N)return dp[start];
-
-	
-	return pivo(start+1);
+	if (start == 2 || start == 1)return 1;
+		
+	if (dp[start] != 0)return dp[start];
+	return dp[start] = pivo(start - 1) + pivo(start - 2);
 
 
-}*/
+}
 
 
 int main() {
@@ -26,14 +23,8 @@ int main() {
 	dp[0] = 0;
 	dp[1] = 1;
 
-	//cout << pivo(2);
+	cout << pivo(N);
 
-	for (int i = 2; i < 2 + N; i++)
-	{
-		dp[i] = dp[i - 1] + dp[i - 2];
-	}
-
-	cout << dp[N];
 
 
 
