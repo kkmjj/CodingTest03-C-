@@ -3,81 +3,59 @@
 using namespace std;
 
 
-int one = 0, two = 0, three = 0, four = 0;
-int answer[5][3];
-int a[5];
-void direction(int d,int h)
-{
-	if (d == 1) {
-		one++;
-		answer[1][one] = h;
-
-	}
-	else if (d == 2)
-	{
-		two++;
-		answer[2][two] = h;
-	}
-	else if (d == 3)
-	{
-		three++;
-		answer[3][three] = h;
-	}
-	
-	else if (d == 4)
-	{
-		four++;
-		answer[4][four] = h;
-	}
-
-}
 
 int main() {
-
-
+	int arr[6];
+	int h, d;
+	int dmax = 0;
+	int hmax = 0;
+	int hindex = 0;
+	int dindex = 0;
 	int N;
 	cin >> N;
-	int start = 0;
+
 	for (int i = 0; i < 6; i++)
 	{
-		int d;
-		int h;
-		cin >> d >> h;
-
-		direction(d,h);
-
-
-	}
-
-	int wide = 1; // 전체 넓이
-	int subwide = 1; // 뺄 넓이
-	
-	
-	for(int i=1;i<=4;i++)
-	{  
 		
-		if (answer[i][2] == 0) // 방향이 한번만 있었을경우 
+		
+		cin >> d >> h;
+		
+		if (d == 4 || d == 3)
 		{
-			wide*=answer[i][1];
+			if (hmax < h)
+			{
+				hmax = h;
+				hindex = i;
+			}
 		}
-		else
+		if (d == 1 || d == 2)
 		{
-			a[i]++;
-
-
+			if (dmax < h)
+			{
+				dmax = h;
+				dindex = i;
+			}
+			
 		}
+
+		arr[i] = h;
 
 	}
 
+	int min_h;
+	int min_w;
 
 
+	min_h = arr[(hindex + 3)%6];
+	min_w = arr[(dindex + 3)%6];
 
-
-
-
-	cout << wide << " " << subwide;
+	cout << min_h << " " << min_w;
 	cout << endl;
-	cout << (wide - subwide)*N;
+	cout << ((hmax*dmax) - (min_h*min_w))*N;
+
+	
+	
+
 
 
 }
