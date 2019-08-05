@@ -14,7 +14,7 @@ int uptemp=-1;
 int LowBinary(int start, int end, int data)
 {
 	int m;
-
+	Lowtemp = -1;
 
 	while (start <= end) // ¿ÞÂÊ 
 	{
@@ -45,7 +45,7 @@ int LowBinary(int start, int end, int data)
 int upBinary(int start, int end, int data)
 {
 	int m;
-
+	uptemp = -1;
 
 	while (start <=end) 
 	{
