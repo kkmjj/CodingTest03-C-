@@ -8,7 +8,7 @@ int apart_index = 0;
 // chicken 중에서 M개 고르기 
 int arr[22][22];
 int answer = 100000;
-int ans = 0;
+int ans = 100000;
 
 struct apart
 {
@@ -36,31 +36,25 @@ void dfs(int cur,int start)
 {
 	if (cur >= M)
 	{
-		
-		ans = 0;
-		for (int j = 0; j < apart_index; j++)
+		answer = 0;
+		for (int i = 0; i < cur; i++)
 		{
-			int min = 100000;
-			for (int i = 0; i < cur; i++)
+		cout << temp[i].row << " " << temp[i].col<<" min";
+			int min =10000;
+			for (int j = 0; j < apart_index; j++)
 			{
-			//	cout << temp[i].row << " " << temp[i].col;
-				// 아파트 중에서 가장 가까이 있는 치킨집 선택 
 				min = min < abs(temp[i].row - apart[j].row) + abs(temp[i].col - apart[j].col) ?
 					min : abs(temp[i].row - apart[j].row) + abs(temp[i].col - apart[j].col);
-
-				
 			}
-		//	cout << "min"<<min ;
-			ans += min;
-		//	cout << "ans"<<ans;
-		//	cout << endl;
-			
-		}
-		//cout << "마지막 ans" << ans;
-		answer = answer < ans ? answer : ans;
-	//	cout << "마지막 answer" << answer;
+			//cout << min << " temp.km";
+			temp[i].km = min;
+			//cout << temp[i].km << " answer";
+			answer += temp[i].km;
+			//cout << answer << " ";
 
-	//	cout << endl;
+		}
+		ans = ans < answer ? ans : answer;
+		cout << endl;
 
 		return;
 	}
@@ -114,7 +108,7 @@ int main() {
 	dfs(0, 0);
 
 
-	cout << answer;
+	cout << ans;
 
 
 
